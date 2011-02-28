@@ -3,7 +3,6 @@ package rocode.FirstSpawnRandomizer;
 import java.io.File;
 import java.util.Random;
 import org.bukkit.Location;
-import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event.Priority;
