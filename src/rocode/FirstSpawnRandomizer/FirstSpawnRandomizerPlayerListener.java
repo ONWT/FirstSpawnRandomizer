@@ -17,7 +17,7 @@ public class FirstSpawnRandomizerPlayerListener extends PlayerListener {
     
     @Override
     public void onPlayerJoin (PlayerEvent event){
-		//if (plugin.isFirstLogin(event.getPlayer())) 
+		if (plugin.isFirstLogin(event.getPlayer())) 
     	{
    			plugin.teleport(event.getPlayer());
 		}
