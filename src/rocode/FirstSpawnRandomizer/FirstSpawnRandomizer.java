@@ -3,6 +3,7 @@ package rocode.FirstSpawnRandomizer;
 import java.io.File;
 import java.util.Random;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event.Priority;
@@ -35,9 +36,10 @@ public class FirstSpawnRandomizer extends JavaPlugin {
 		player.teleportTo(location);
 	}
 	private Location getRandomLocation(World world) {
-		int radius = 10000;
+		int radius = 500;
 		int x = rand.nextInt(radius * 2) - radius;
 		int z = rand.nextInt(radius * 2) - radius;
+		world.getChunkAt(world.getBlockAt(x,0,z));
 		int y = world.getHighestBlockYAt(x, z);
 		return new Location(world, x + 0.5, y + 2, z + 0.5);
 	}
