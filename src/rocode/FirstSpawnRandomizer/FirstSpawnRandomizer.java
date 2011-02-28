@@ -32,7 +32,6 @@ public class FirstSpawnRandomizer extends JavaPlugin {
 	protected void teleport(Player player) {
 		World world = player.getWorld();
 		player.teleportTo(getRandomLocation(world));
-		System.out.println("Teleporting...");
 	}
 	private Location getRandomLocation(World world) {
 		int radius = 10000;
