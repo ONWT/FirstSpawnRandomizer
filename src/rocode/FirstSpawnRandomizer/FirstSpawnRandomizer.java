@@ -39,7 +39,7 @@ public class FirstSpawnRandomizer extends JavaPlugin {
 		int x = rand.nextInt(radius * 2) - radius;
 		int z = rand.nextInt(radius * 2) - radius;
 		int y = world.getHighestBlockYAt(x, z);
-		return new Location(world, x + 0.5, y + 2, z + 0.5);
+		return new Location(world, x + 0.5, y + 3, z + 0.5);
 	}
 	public boolean isFirstLogin (Player player)
 	{
