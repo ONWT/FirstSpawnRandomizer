@@ -36,7 +36,7 @@ public class FirstSpawnRandomizer extends JavaPlugin {
 		player.teleportTo(location);
 	}
 	private Location getRandomLocation(World world) {
-		int radius = 500;
+		int radius = 10000;
 		int x = rand.nextInt(radius * 2) - radius;
 		int z = rand.nextInt(radius * 2) - radius;
 		world.getChunkAt(world.getBlockAt(x,0,z));
