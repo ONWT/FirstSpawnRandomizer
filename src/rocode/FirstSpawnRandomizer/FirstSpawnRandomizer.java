@@ -22,7 +22,7 @@ public class FirstSpawnRandomizer extends JavaPlugin {
 
     public void onEnable() {
     	PluginManager pm = getServer().getPluginManager();
-    	pm.registerEvent(Type.PLAYER_LOGIN, playerListener, Priority.Low, this);
+    	pm.registerEvent(Type.PLAYER_JOIN, playerListener, Priority.High, this);
         PluginDescriptionFile pdfFile = this.getDescription();
         System.out.println( pdfFile.getName() + " version " + pdfFile.getVersion() + " is enabled!" );
     }
@@ -31,14 +31,14 @@ public class FirstSpawnRandomizer extends JavaPlugin {
     }
 	protected void teleport(Player player) {
 		World world = player.getWorld();
-		player.teleportTo(getRandomLocation(world));
+		Location four = getRandomLocation(world);
+		player.teleportTo(four);
 	}
 	private Location getRandomLocation(World world) {
 		int radius = 10000;
 		int x = rand.nextInt(radius * 2) - radius;
 		int z = rand.nextInt(radius * 2) - radius;
 		int y = world.getHighestBlockYAt(x, z);
-		System.out.println("Finding random location...");
 		return new Location(world, x + 0.5, y + 2, z + 0.5);
 	}
 	public boolean isFirstLogin (Player player)
