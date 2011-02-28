@@ -2,7 +2,6 @@ package rocode.FirstSpawnRandomizer;
 
 import org.bukkit.event.player.PlayerEvent;
 import org.bukkit.event.player.PlayerListener;
-import org.bukkit.event.player.PlayerLoginEvent;
 
 /**
  * Handle events for all Player related events
@@ -15,11 +14,13 @@ public class FirstSpawnRandomizerPlayerListener extends PlayerListener {
         plugin = instance;
     }
     
+    @Override
     public void onPlayerJoin (PlayerEvent event){
 		if (plugin.isFirstLogin(event.getPlayer())) 
     	{
    			plugin.teleport(event.getPlayer());
 		}
+		super.onPlayerJoin(event);
     }
     
 }

@@ -22,7 +22,7 @@ public class FirstSpawnRandomizer extends JavaPlugin {
 
     public void onEnable() {
     	PluginManager pm = getServer().getPluginManager();
-    	pm.registerEvent(Type.PLAYER_JOIN, playerListener, Priority.High, this);
+    	pm.registerEvent(Type.PLAYER_JOIN, playerListener, Priority.Low, this);
         PluginDescriptionFile pdfFile = this.getDescription();
         System.out.println( pdfFile.getName() + " version " + pdfFile.getVersion() + " is enabled!" );
     }
@@ -31,8 +31,8 @@ public class FirstSpawnRandomizer extends JavaPlugin {
     }
 	protected void teleport(Player player) {
 		World world = player.getWorld();
-		Location four = getRandomLocation(world);
-		player.teleportTo(four);
+		Location location = getRandomLocation(world);
+		player.teleportTo(location);
 	}
 	private Location getRandomLocation(World world) {
 		int radius = 10000;
@@ -49,7 +49,6 @@ public class FirstSpawnRandomizer extends JavaPlugin {
 			System.out.println("First login detected.");
 			return true;
 		}
-		System.out.println("Not first login.");
 		return false;
 	}
 
