@@ -45,6 +45,7 @@ public class FirstSpawnRandomizer extends JavaPlugin {
 	 * @param radius
 	 * @return
 	 */
+	@SuppressWarnings("unused")
 	private Location getRandomLocation(World world,int radius) {
 		int x = rand.nextInt(radius * 2) - radius;
 		int z = rand.nextInt(radius * 2) - radius;
