@@ -17,30 +17,54 @@ import org.bukkit.plugin.PluginManager;
  */
 public class FirstSpawnRandomizer extends JavaPlugin {
 	private final FirstSpawnRandomizerPlayerListener playerListener = new FirstSpawnRandomizerPlayerListener(this);
+	private static Location mainLoc;
 
     private Random rand = new Random(System.nanoTime());
 
     public void onEnable() {
+    	setMainLoc(new Location(this.getServer().getWorlds().get(0), 0, 0, 0));
     	PluginManager pm = getServer().getPluginManager();
     	pm.registerEvent(Type.PLAYER_JOIN, playerListener, Priority.Low, this);
         PluginDescriptionFile pdfFile = this.getDescription();
         System.out.println( pdfFile.getName() + " version " + pdfFile.getVersion() + " is enabled!" );
+        for(World world:this.getServer().getWorlds())
+        {
+        	getServer().getScheduler().scheduleAsyncRepeatingTask(this,new FirstSpawnRandomizerLocationRand(this,world),1L, 200L);
+        }
     }
     public void onDisable() {
         System.out.println("FirstSpawnRandomizer Disabled!");
     }
 	protected void teleport(Player player) {
-		World world = player.getWorld();
-		Location location = getRandomLocation(world);
+		Location location = getRandomLocation(getMainLoc(),40);
 		player.teleportTo(location);
 	}
-	private Location getRandomLocation(World world) {
-		int radius = 10000;
+	/**
+	 * old version
+	 * @param world
+	 * @param radius
+	 * @return
+	 */
+	private Location getRandomLocation(World world,int radius) {
 		int x = rand.nextInt(radius * 2) - radius;
 		int z = rand.nextInt(radius * 2) - radius;
 		world.getChunkAt(world.getBlockAt(x,0,z));
 		int y = world.getHighestBlockYAt(x, z);
 		return new Location(world, x + 0.5, y + 3, z + 0.5);
+	}
+	/**
+	 * New version takes the world from the location given
+	 * @param loc
+	 * @param radius
+	 * @return
+	 */
+	public Location getRandomLocation(Location loc,int radius) {
+		int x = rand.nextInt(radius * 2) - radius;
+		int z = rand.nextInt(radius * 2) - radius;
+		World world=loc.getWorld();
+		world.getChunkAt(world.getBlockAt(x,0,z));
+		int y = world.getHighestBlockYAt(x, z);
+		return new Location(world, x + loc.getBlockX(), y + loc.getBlockY(), z + loc.getBlockZ());
 	}
 	public boolean isFirstLogin (Player player)
 	{
@@ -51,6 +75,18 @@ public class FirstSpawnRandomizer extends JavaPlugin {
 			return true;
 		}
 		return false;
+	}
+	/**
+	 * @param mainLoc the mainLoc to set
+	 */
+	public static void setMainLoc(Location mainLoc) {
+		FirstSpawnRandomizer.mainLoc = mainLoc;
+	}
+	/**
+	 * @return the mainLoc
+	 */
+	public static Location getMainLoc() {
+		return mainLoc;
 	}
 
 }
