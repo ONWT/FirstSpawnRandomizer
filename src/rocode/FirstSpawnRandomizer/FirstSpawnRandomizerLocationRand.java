@@ -1,7 +1,6 @@
 package rocode.FirstSpawnRandomizer;
 
 import org.bukkit.Location;
-import org.bukkit.World;
 
 public class FirstSpawnRandomizerLocationRand implements Runnable{
 	private final FirstSpawnRandomizer plugin;
