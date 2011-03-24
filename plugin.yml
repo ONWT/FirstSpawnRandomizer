@@ -1,3 +1,9 @@
 name: FirstSpawnRandomizer
 main: rocode.FirstSpawnRandomizer.FirstSpawnRandomizer
 version: 0.1
+commands:
+  Random:
+    description: Spawns you at a random location
+    usage: |
+           /<command>
+           Example: /<command> To get you to a radnom location
