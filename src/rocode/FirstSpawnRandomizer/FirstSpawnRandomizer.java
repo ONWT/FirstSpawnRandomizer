@@ -41,7 +41,7 @@ public class FirstSpawnRandomizer extends JavaPlugin {
         System.out.println( pdfFile.getName() + " version " + pdfFile.getVersion() + " is enabled!" );
         for(World world:this.getServer().getWorlds())
         {
-        	getServer().getScheduler().scheduleAsyncRepeatingTask(this,new FirstSpawnRandomizerLocationRand(this,world),1L, delay);
+        	getServer().getScheduler().scheduleAsyncRepeatingTask(this,new FirstSpawnRandomizerLocationRand(this,world.getSpawnLocation()),1L, delay);
         }
     }
     public void onDisable() {
@@ -147,13 +147,13 @@ public class FirstSpawnRandomizer extends JavaPlugin {
 	/**
 	 * @param mainLoc the mainLoc to set
 	 */
-	public static void setMainLoc(Location mainLoc) {
+	public synchronized static void setMainLoc(Location mainLoc) {
 		FirstSpawnRandomizer.mainLoc = mainLoc;
 	}
 	/**
 	 * @return the mainLoc
 	 */
-	public static Location getMainLoc() {
+	public synchronized static Location getMainLoc() {
 		return mainLoc;
 	}
 
