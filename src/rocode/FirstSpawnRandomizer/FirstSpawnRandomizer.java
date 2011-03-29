@@ -29,6 +29,7 @@ public class FirstSpawnRandomizer extends JavaPlugin {
 	private static Location mainLoc;
 	public boolean RandomSpawn=false;
 	private Integer delay=200;
+    public static int playercount=0;
 
     private Random rand = new Random(System.nanoTime());
 
@@ -39,10 +40,8 @@ public class FirstSpawnRandomizer extends JavaPlugin {
     	pm.registerEvent(Type.PLAYER_JOIN, playerListener, Priority.Low, this);
         PluginDescriptionFile pdfFile = this.getDescription();
         System.out.println( pdfFile.getName() + " version " + pdfFile.getVersion() + " is enabled!" );
-        for(World world:this.getServer().getWorlds())
-        {
-        	getServer().getScheduler().scheduleAsyncRepeatingTask(this,new FirstSpawnRandomizerLocationRand(this,world.getSpawnLocation()),1L, delay);
-        }
+        	FirstSpawnRandomizer.setMainLoc(getRandomLocation(this.getServer().getWorlds().get(0),10000));
+ 
     }
     public void onDisable() {
         System.out.println("FirstSpawnRandomizer Disabled!");
@@ -52,7 +51,7 @@ public class FirstSpawnRandomizer extends JavaPlugin {
     public boolean onCommand(CommandSender sender, Command command, String commandLabel, String[] args)
 	{
 		String commandName = command.getName().toLowerCase();
-		if(commandName=="random")
+		//if(commandName=="random")
 		{
 			if(sender instanceof Player)
 			{
@@ -70,8 +69,14 @@ public class FirstSpawnRandomizer extends JavaPlugin {
 	}
     
 	protected void teleport(Player player) {
+		if(playercount==10)
+		{
+			FirstSpawnRandomizer.setMainLoc(getRandomLocation(player.getWorld().getSpawnLocation(),10000));
+			playercount=0;
+		}
 		Location location = getRandomLocation(getMainLoc(),40);
 		player.teleportTo(location);
+		playercount++;
 	}
 	private void loadProperties() {
         Scanner properties;
@@ -112,8 +117,7 @@ public class FirstSpawnRandomizer extends JavaPlugin {
 	 * @param radius
 	 * @return
 	 */
-	@SuppressWarnings("unused")
-	private Location getRandomLocation(World world,int radius) {
+	Location getRandomLocation(World world,int radius) {
 		int x = rand.nextInt(radius * 2) - radius;
 		int z = rand.nextInt(radius * 2) - radius;
 		world.getChunkAt(world.getBlockAt(x,0,z));

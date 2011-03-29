@@ -9,16 +9,15 @@ import org.bukkit.event.player.PlayerListener;
  */
 public class FirstSpawnRandomizerPlayerListener extends PlayerListener {
     private final FirstSpawnRandomizer plugin;
-
     public FirstSpawnRandomizerPlayerListener(FirstSpawnRandomizer instance) {
         plugin = instance;
     }
     
     @Override
     public void onPlayerJoin (PlayerEvent event){
-		if (plugin.isFirstLogin(event.getPlayer())) 
+		if (plugin.isFirstLogin(event.getPlayer()))
     	{
-   			plugin.teleport(event.getPlayer());
+			plugin.teleport(event.getPlayer());
 		}
 		super.onPlayerJoin(event);
     }

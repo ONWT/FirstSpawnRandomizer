@@ -2,7 +2,7 @@ name: FirstSpawnRandomizer
 main: rocode.FirstSpawnRandomizer.FirstSpawnRandomizer
 version: 0.1
 commands:
-  Random:
+  rspawn:
     description: Spawns you at a random location
     usage: |
            /<command>
